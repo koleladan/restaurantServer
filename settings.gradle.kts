@@ -1,0 +1,1 @@
+rootProject.name = "com.example.restaurant_server"
