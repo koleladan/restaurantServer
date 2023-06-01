@@ -3,7 +3,7 @@ package com.kolela.user.authentication
 import com.auth0.jwt.JWT
 import com.auth0.jwt.JWTVerifier
 import com.auth0.jwt.algorithms.Algorithm
-import com.kolela.user.data.AdminUser
+import com.kolela.user.data.AdmUser
 
 class JwtService {
     private val  issuer = "restaurantServer"
@@ -16,11 +16,11 @@ class JwtService {
         .build()
 
 
-    fun generateToken(adminUser: AdminUser): String {
+    fun generateToken(adminUser: AdmUser): String {
         return JWT.create()
             .withSubject("RestaurantAuthentication")
             .withIssuer(issuer)
-            .withClaim("id", adminUser.id)
+            .withClaim("email", adminUser.email)
             .sign(algorithm)
     }
 }

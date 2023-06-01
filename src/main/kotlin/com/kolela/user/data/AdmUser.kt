@@ -1,6 +1,6 @@
 package com.kolela.user.data
 
-data class AdminUser(
+data class AdmUser(
     val  firstName: String,
     val lastName: String,
     val email: String,

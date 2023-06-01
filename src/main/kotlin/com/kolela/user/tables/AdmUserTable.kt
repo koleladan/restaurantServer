@@ -10,5 +10,5 @@ object AdmUserTable: Table() {
     val email = varchar("email", 256)
     var password = varchar("password", 256)
 
-    override val primaryKey = PrimaryKey(id)
+    override val primaryKey = PrimaryKey(email)
 }

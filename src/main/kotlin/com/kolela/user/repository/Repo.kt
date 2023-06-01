@@ -1,40 +1,39 @@
 package com.kolela.user.repository
 
 import com.kolela.connection.DatabaseFactory.dbQuery
-import com.kolela.user.data.AdminUser
+import com.kolela.user.data.AdmUser
 import com.kolela.user.tables.AdmUserTable
 import org.jetbrains.exposed.sql.ResultRow
-import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 
 class Repo {
-    suspend fun SignUpUser(adminUser: AdminUser) {
+    suspend fun SignUpUser(admUser: AdmUser) {
         dbQuery{
             AdmUserTable.insert {ut ->
-                ut[AdmUserTable.firstName] = adminUser.firstName
-                ut[AdmUserTable.lastName] = adminUser.lastName
-                ut[AdmUserTable.id] = adminUser.id
-                ut[AdmUserTable.email] = adminUser.email
-                ut[AdmUserTable.password] = adminUser.password
-                ut[AdmUserTable.phoneNumber] = adminUser.phoneNumber
+                ut[AdmUserTable.firstName] = admUser.firstName
+                ut[AdmUserTable.lastName] = admUser.lastName
+                ut[AdmUserTable.id] = admUser.id
+                ut[AdmUserTable.email] = admUser.email
+                ut[AdmUserTable.password] = admUser.password
+                ut[AdmUserTable.phoneNumber] = admUser.phoneNumber
             }
 
         }
     }
 
-    suspend fun findUserById(id: String) = dbQuery {
-        AdmUserTable.select { AdmUserTable.id.eq(id) }
+    suspend fun findUserByEmail(email: String) = dbQuery {
+        AdmUserTable.select { AdmUserTable.email.eq(email) }
             .map { rowToAdmUser(it) }
             .singleOrNull()
 
     }
 
-    private fun rowToAdmUser(row: ResultRow?): AdminUser? {
+    private fun rowToAdmUser(row: ResultRow?): AdmUser? {
         if (row == null) {
             return null
         }
-        return AdminUser(
+        return AdmUser(
             firstName = row[AdmUserTable.firstName],
             lastName = row[AdmUserTable.lastName],
             id = row[AdmUserTable.id],
